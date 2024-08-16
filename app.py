@@ -3,13 +3,10 @@ import os
 import time
 import requests
 import threading
-import random
 
 def print_welcome_message():
     """Prints the welcome message."""
     print('KatKoin')
-
-coins = 0
 
 def get_public_ip():
     """Fetches the public IP address of the machine."""
@@ -62,7 +59,6 @@ def set_balance(wallet_key, balance):
 
 def send_coins(amount, sender_key, receiver_key):
     """Send coins from one wallet to another."""
-    global coins
     keys = read_keys_from_file()
 
     if sender_key not in keys:
@@ -126,7 +122,7 @@ def commands():
                 print(f'Existing Wallet Key for IP {public_ip}: {wallet_key}')
             else:
                 new_key = generate_wallet_key()
-                keys[new_key] = {'ip': public_ip, 'balance': coins}
+                keys[new_key] = {'ip': public_ip, 'balance': 0}  # Initialize balance to 0
                 write_keys_to_file(keys)
                 print(f'Generated Wallet Key for IP {public_ip}: {new_key}')
         elif user_input == 'exit':
@@ -142,7 +138,6 @@ def commands():
             else:
                 print('No wallet key found for the current IP address.')
         elif user_input == 'wallet -send':
-            print(f'How much KatKoin do you want to send?')
             amount_str = input('How much KatKoin do you want to send? ').strip()
             if not amount_str.isdigit():
                 print('Must be a number!')
@@ -175,5 +170,5 @@ def main():
     print_welcome_message()
     commands()
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
