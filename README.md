@@ -1,3 +1,3 @@
 # Crypto-Game
 
-This is a simple crypto game 
+This is a simple crypto simulation game written in python.
